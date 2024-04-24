@@ -8,6 +8,8 @@ import ExercisesList from "./components/exercises-list.component";
 import EditExercise from "./components/edit-exercise.component";
 import CreateExercise from "./components/create-exercise.component";
 import CreateUser from "./components/create-user.component";
+import Login from './Components/login.components';
+import Register from './Components/register.component'
 
 const App = () => {
   return (
@@ -19,6 +21,8 @@ const App = () => {
     <Route path="/edit/:id" component={EditExercise} />
     <Route path="/create" component={CreateExercise} />
     <Route path="/user" component={CreateUser} />
+    <Route path="/login" component={Login} />
+    <Route path="/signup" component={Register} />
     </div>
   </Router>
   );
