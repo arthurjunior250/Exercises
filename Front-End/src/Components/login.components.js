@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default class Login extends Component {
   constructor(props) {
@@ -7,7 +9,6 @@ export default class Login extends Component {
     this.state = {
       username: '',
       password: '',
-      errorMessage: ''
     };
   }
 
@@ -18,30 +19,53 @@ export default class Login extends Component {
     });
   };
 
-  handleSubmit = (event) => {
+  handleSubmit = async (event) => {
     event.preventDefault();
-    // Perform login logic here
     const { username, password } = this.state;
-    // Example validation
-    if (username === 'admin' && password === 'password') {
-      // Redirect or perform other actions upon successful login
-      console.log('Login successful');
-    } else {
-      this.setState({ errorMessage: 'Invalid username or password' });
+
+    try {
+      const response = await fetch("http://localhost:5000/register/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: username, // Assuming your backend expects "email" instead of "username"
+          password: password
+        })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // Handle successful login
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("user", JSON.stringify(data));
+        console.log(data.token);
+        // Redirect to dashboard
+        this.props.history.push("/dashboard"); // Assuming you have defined the route for dashboard
+        window.location.reload();
+      } else {
+        // Handle login failure
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error("An error occurred. Please try again later.");
     }
   };
 
   render() {
-    const { username, password, errorMessage } = this.state;
+    const { username, password } = this.state;
     return (
       <div className="container">
         <h2>Login</h2>
-        {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
+        <ToastContainer />
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
-            <label htmlFor="username">Username:</label>
+            <label htmlFor="username">Email:</label>
             <input
-              type="text"
+              type="email"
               className="form-control"
               id="username"
               name="username"
