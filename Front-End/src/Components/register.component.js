@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default class CreateUser extends Component {
   constructor(props) {
     super(props);
@@ -15,8 +16,7 @@ export default class CreateUser extends Component {
       username: '',
       email: '',
       password: '',
-      confirmPassword: '',
-      errorMessage: ''
+      confirmPassword: ''
     };
   }
 
@@ -51,23 +51,24 @@ export default class CreateUser extends Component {
 
     // Check if passwords match
     if (password !== confirmPassword) {
-      this.setState({ errorMessage: 'Passwords do not match' });
+      toast.error('Passwords do not match');
       return;
     }
 
-    const user = {
+    const newUser = {
       username: username,
       email: email,
       password: password
     };
 
-    axios.post('http://localhost:5000/register/add', user)
+    axios.post('http://localhost:5000/register/signup', newUser)
       .then(res => {
-        console.log(res.data);
-        // Redirect or perform other actions upon successful registration
+        toast.success('User created successfully');
+        // Redirect to sign-in page or perform other actions upon successful registration
+        this.props.history.push('/login'); // Assuming you have defined the route for sign-in page
       })
       .catch(error => {
-        this.setState({ errorMessage: error.response.data.message });
+        toast.error(error.response.data.message);
       });
 
     // Clear form fields
@@ -83,7 +84,7 @@ export default class CreateUser extends Component {
     return (
       <div>
         <h3>Create New User</h3>
-        {this.state.errorMessage && <div className="alert alert-danger">{this.state.errorMessage}</div>}
+        <ToastContainer />
         <form onSubmit={this.onSubmit}>
           <div className="form-group"> 
             <label>Username: </label>
