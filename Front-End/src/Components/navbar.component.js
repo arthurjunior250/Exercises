@@ -51,10 +51,12 @@ export default class Navbar extends Component {
             {isLoggedIn ? (
               // If user is logged in, display username and user icon
               <>
+              <Link to="/dashboard" className="nav-link">
                 <li className="nav-item">
                 <i className="fas fa-user-circle fa-lg text-light mr-3"></i>
                   <span className="navbar-text mr-3">{username}</span>
                 </li>
+                </Link>
               </>
             ) : (
               // If user is not logged in, display login button

@@ -61,7 +61,7 @@ export default class CreateUser extends Component {
       password: password
     };
 
-    axios.post('http://localhost:5000/register/signup', newUser)
+    axios.post('http://localhost:5000/auth/signup', newUser)
       .then(res => {
         toast.success('User created successfully');
         // Redirect to sign-in page or perform other actions upon successful registration

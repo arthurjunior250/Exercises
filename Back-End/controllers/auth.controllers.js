@@ -1,6 +1,6 @@
-const User = require('../models/register.model');
+const User = require('../models/auth.model');
 const { hash, verify } = require('../middleware/hash-password');
-const { decodeToken, signToken } = require('../middleware/token');
+const { decodeToken, signToken } = require('../middleware/login-token');
 const { registerValidation } = require("../validation/index");
 
 const signup = async(req, res) => {
