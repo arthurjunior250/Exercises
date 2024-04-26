@@ -1,4 +1,4 @@
-const { decodeToken } = require("./token");
+const { decodeToken } = require("./login-token");
 
 const checkAdmin = (req, res, next) => {
     const bearerToken = req.headers.authorization;

@@ -24,7 +24,7 @@ export default class Login extends Component {
     const { username, password } = this.state;
 
     try {
-      const response = await fetch("http://localhost:5000/register/login", {
+      const response = await fetch("http://localhost:5000/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

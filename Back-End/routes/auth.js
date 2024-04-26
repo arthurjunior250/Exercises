@@ -28,7 +28,7 @@ const express = require('express');
 const router = express.Router();
 
 // Import your controller functions
-const { signup, login, userProfile, deleteuserById, getAllusers, updateProfile } = require('../controllers/register.controllers');
+const { signup, login, userProfile, deleteuserById, getAllusers, updateProfile } = require('../controllers/auth.controllers');
 
 // Define your routes with corresponding controller functions
 router.post('/signup', signup);
