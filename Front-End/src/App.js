@@ -13,26 +13,31 @@ import Dashboard from './Components/dashboard.component';
 import Footer from './Components/footer.components';
 import UsersList from './Components/users.component';
 import PrivateRoute from './Components/PrivateRoute';
+
 const App = () => {
   return (
     
     <Router>
     <div className="container">
-    <Navbar />
-    <br/>
-    <Route path="/" exact component={ExercisesList} />
-    <Route path="/edit/:id" component={EditExercise} />
-    <Route path="/create" component={CreateExercise} />
-    <Route path="/user" component={CreateUser} />
-    <Route path="/login" component={Login} />
-    <Route path="/signup" component={Register} />
-    <Route element={<PrivateRoute />}>
-    <Route path="/dashboard" component={Dashboard} />
-    <Route path="/users" component={UsersList} /> 
-    </Route>
-    <Footer/>
+      <Navbar />
+      <br/>
+      <Route path="/" exact component={ExercisesList} />
+      <Route path="/edit/:id" component={EditExercise} />
+      <Route path="/create" component={CreateExercise} />
+      <PrivateRoute path="/user" component={CreateUser} />
+      <Route path="/login" component={Login} />
+      <Route path="/signup" component={Register} />
+      <Route path="/dashboard">
+        <Dashboard>
+          <Route path="/" exact component={Dashboard} />
+          <Route path="/users" component={UsersList} />
+        </Dashboard>
+      </Route>
+      <br/>
+      <Footer/>
     </div>
   </Router>
+  
   );
 };
 
