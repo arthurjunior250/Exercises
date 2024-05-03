@@ -27,12 +27,12 @@ const App = () => {
       <PrivateRoute path="/user" component={CreateUser} />
       <Route path="/login" component={Login} />
       <Route path="/signup" component={Register} />
-      <Route path="/dashboard">
-        <Dashboard>
-          <Route path="/" exact component={Dashboard} />
-          <Route path="/users" component={UsersList} />
-        </Dashboard>
-      </Route>
+      {/* <Route path="/dashboard">
+        <Dashboard> */}
+          <Route path="/dashboard" exact component={Dashboard} />
+          {/* <Route path="/users" component={UsersList} /> */}
+        {/* </Dashboard>
+      </Route> */}
       <br/>
       <Footer/>
     </div>
